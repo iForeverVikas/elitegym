@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Elite Fitness & Wellness Gym</title>
+  <!-- Google Fonts: Montserrat -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* Reset & base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      background: #0a0a0a;
+      color: #eee;
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Container */
+    .container {
+      width: min(90%, 1200px);
+      margin: 0 auto;
+    }
+
+    /* Accent colors */
+    :root {
+      --electric-blue: #00aaff;
+      --neon-green: #39ff14;
+      --dark-bg: #0a0a0a;
+      --dark-dim: #121212;
+      --accent: var(--electric-blue);
+    }
+
+    /* Utility */
+    .flex {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .flex-center {
+      justify-content: center;
+      align-items: center;
+    }
+    .btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #0a0a0a;
+      font-weight: 700;
+      padding: 0.9rem 2rem;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.25s ease;
+      user-select: none;
+      font-size: 1rem;
+      text-align: center;
+    }
+    .btn:hover,
+    .btn:focus {
+      background: #008dcc;
+      transform: scale(1.05);
+      outline: none;
+    }
+    h1, h2, h3 {
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+    h1 {
+      font-size: 2.8rem;
+      line-height: 1.1;
+    }
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.75rem;
+      color: var(--accent);
+    }
+    p {
+      font-weight: 400;
+      color: #ccc;
+      margin-bottom: 1rem;
+    }
+    /* Navbar */
+    header {
+      position: sticky;
+      top: 0;
+      background: var(--dark-dim);
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.6rem;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      user-select: none;
+      cursor: default;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+    nav ul li a {
+      font-weight: 600;
+      color: #eee;
+      padding: 0.5rem 0;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background-color: var(--accent);
+      transition: width 0.3s ease;
+    }
+    nav ul li a:hover,
+    nav ul li a:focus {
+      color: var(--accent);
+      outline: none;
+    }
+    nav ul li a:hover::after,
+    nav ul li a:focus::after {
+      width: 100%;
+    }
+
+    /* Metrics bar */
+    .metrics-bar {
+      background: linear-gradient(90deg,#00aaff80 0%, #39ff1480 100%);
+      padding: 1.2rem 0;
+      margin-bottom: -20px;
+      box-shadow: 0 4px 18px 0 #00aaff33;
+      opacity: 0;
+      transform: translateY(45px);
+      transition: all 0.76s cubic-bezier(.45,.75,.13,1.03);
+    }
+    .metrics-bar.visible {
+      opacity: 1; transform: none;
+    }
+    .metrics-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+      font-family: 'Montserrat',sans-serif;
+      font-size: 1.2rem;
+    }
+    .metric span {
+      color: var(--neon-green);
+      font-size: 2.1rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-shadow: 0 0 8px #00ffaeBB;
+    }
+    .metrics-container .bar {
+      width: 2px;
+      height: 28px;
+      background: linear-gradient(#00aaff 10%, #39ff14 90%);
+      border-radius: 2px;
+      opacity:0.6;
+    }
+
+    /* Hero section */
+    .hero {
+      position: relative;
+      background-image: url('https://images.unsplash.com/photo-1554284126-12a529ac7e47?auto=format&fit=crop&w=1400&q=80');
+      background-size: cover;
+      background-position: center;
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      color: white;
+      text-shadow: 0 0 10px rgba(0,0,0,0.85);
+      padding: 0 1.5rem;
+      scroll-margin-top: 70px;
+      opacity: 0;
+      transform: translateY(45px);
+      transition: all 0.76s cubic-bezier(.45,.75,.13,1.03);
+      border-radius: 0 0 40px 40px;
+      overflow: hidden;
+    }
+    .hero.visible {
+      opacity: 1; transform: none;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 2;
+      border-radius: 0 0 40px 40px;
+    }
+    .hero-gradient {
+      position: absolute;
+      inset:0;
+      background: radial-gradient(circle at 70% 40%, #00aaff44 0, transparent 48%), 
+                  radial-gradient(circle at 20% 60%, #39ff1444 0, transparent 60%);
+      z-index: 3;
+      pointer-events:none;
+      animation: pulse-bg 7s linear infinite alternate;
+    }
+    @keyframes pulse-bg {
+      0% { opacity: .36;}
+      100% { opacity: 0.62;}
+    }
+    .hero-content {
+      position: relative;
+      max-width: 700px;
+      z-index: 5;
+      animation: fadeUp 1.2s ease forwards;
+    }
+    .hero h1 {
+      font-size: 3.2rem;
+      margin-bottom: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+    }
+    .hero-tag {
+      font-size: 1.2rem;
+      font-weight:600;
+      color: var(--neon-green);
+      background: rgba(22,34,22,0.34);
+      display: inline-block;
+      padding: 0.3em 1em;
+      border-radius: 20px;
+      letter-spacing: 0.08em;
+      margin-bottom: 1.8rem;
+      box-shadow: 0 0 16px #39ff1422;
+      text-shadow: none;
+      animation: fadeUp 1.1s 0.3s backwards;
+    }
+    /* FadeUp Animation */
+    @keyframes fadeUp {
+      0% {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .btn.cta-btn {
+      animation: neon-flash 2s infinite alternate;
+      box-shadow: 0 0 18px 2px #39ff1480,0 0 2px #00aaff40;
+      position: relative;
+    }
+    @keyframes neon-flash {
+      0% { box-shadow: 0 0 24px #00aaff88,0 0 8px #39ff1466; }
+      100% { box-shadow: 0 0 32px #39ff1466,0 0 8px #00aaff33; }
+    }
+    .btn.cta-btn span {
+      font-size: 1.3em;
+      margin-right: 0.32em;
+    }
+
+    /* Section titles */
+    section h2 {
+      text-align: center;
+      margin: 3rem 0 2rem 0;
+    }
+    /* Neon accent divider for each section title */
+    section h2:before {
+      content: "";
+      display: block;
+      width: 48px;
+      height: 4px;
+      background: linear-gradient(90deg, #00aaff 0%, #39ff14 100%);
+      margin: 0 auto 0.7em auto;
+      border-radius: 4px;
+      box-shadow: 0 0 12px #00ffae88;
+    }
+
+    /* Features */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      padding: 0 1.5rem 3rem 1.5rem;
+      opacity: 0;
+      transform: translateY(45px);
+      transition: all 0.76s cubic-bezier(.45,.75,.13,1.03);
+    }
+    .features.visible {
+      opacity: 1; transform: none;
+    }
+    .feature-card {
+      background: var(--dark-dim);
+      border-radius: 15px;
+      padding: 1.8rem 1.5rem;
+      box-shadow: 0 0 20px rgba(0, 170, 255, 0.15);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+      cursor: pointer;
+      outline-offset: 4px;
+    }
+    .feature-card:hover,
+    .feature-card:focus {
+      transform: translateY(-8px);
+      box-shadow: 0 0 40px rgba(0, 170, 255, 0.5);
+      outline: 3px solid var(--electric-blue);
+    }
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+      user-select: none;
+    }
+    .feature-card h3 {
+      margin-bottom: 0.75rem;
+    }
+    .feature-card p {
+      color: #bbb;
+      font-size: 1rem;
+    }
+    /* Modal backdrop (Feature Details & Sign-up share this, distinguish by id) */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1200;
+      animation: fadeInBackdrop 0.3s ease forwards;
+    }
+    .modal-backdrop.active {
+      display: flex;
+    }
+    @keyframes fadeInBackdrop {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    /* Feature Detail Modal */
+    .modal {
+      background: var(--dark-dim);
+      border-radius: 20px;
+      max-width: 600px;
+      padding: 2rem 2.5rem;
+      box-shadow: 0 0 40px var(--electric-blue);
+      color: #ddd;
+      position: relative;
+      max-height: 80vh;
+      overflow-y: auto;
+      animation: fadeInModal 0.35s ease forwards;
+      outline: none;
+    }
+    @keyframes fadeInModal {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .modal h3 {
+      color: var(--accent);
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+    .modal p {
+      font-size: 1.1rem;
+      line-height: 1.5;
+      margin-bottom: 1.2rem;
+    }
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: transparent;
+      border: none;
+      color: #ccc;
+      font-size: 1.8rem;
+      cursor: pointer;
+      transition: color 0.2s ease;
+      user-select: none;
+      line-height: 1;
+      padding: 0;
+    }
+    .modal-close:hover,
+    .modal-close:focus {
+      color: var(--electric-blue);
+      outline: none;
+    }
+
+    /* Pricing plans */
+    .pricing {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      padding: 0 1.5rem 3rem 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      opacity: 0;
+      transform: translateY(45px);
+      transition: all 0.76s cubic-bezier(.45,.75,.13,1.03);
+    }
+    .pricing.visible {
+      opacity: 1; transform: none;
+    }
+    .plan {
+      background: var(--dark-dim);
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 130, 255, 0.2);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      user-select: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: default;
+      border: 2px solid transparent;
+    }
+    .plan:hover,
+    .plan:focus {
+      box-shadow: 0 0 45px rgba(0, 130, 255, 0.6);
+      transform: translateY(-10px);
+      outline: none;
+      border-color: var(--electric-blue);
+    }
+    .plan-title {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      font-weight: 800;
+      color: var(--electric-blue);
+    }
+    .plan-price {
+      font-size: 2.6rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+      color: var(--neon-green);
+    }
+    .plan-duration {
+      color: #7abaff;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+    .plan-features {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1.8rem 0;
+      color: #bbb;
+      font-size: 1rem;
+    }
+    .plan-features li {
+      margin-bottom: 0.8rem;
+    }
+    .choose-plan-btn {
+      background: var(--neon-green);
+      color: var(--dark-bg);
+      padding: 0.75rem 1.5rem;
+      border-radius: 30px;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.25s ease;
+      user-select: none;
+    }
+    .choose-plan-btn:hover,
+    .choose-plan-btn:focus {
+      background: #36e50f;
+      transform: scale(1.05);
+      outline: none;
+    }
+
+    /* Class schedule timetable */
+    .timetable {
+      max-width: 1000px;
+      margin: 0 auto 3rem;
+      padding: 0 1.5rem;
+      overflow-x: auto;
+      user-select: none;
+      opacity: 0;
+      transform: translateY(45px);
+      transition: all 0.76s cubic-bezier(.45,.75,.13,1.03);
+    }
+    .timetable.visible {
+      opacity: 1; transform: none;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 0 25px rgba(0, 170, 255, 0.2);
+      background: var(--dark-dim);
+    }
+    th, td {
+      padding: 1rem 0.8rem;
+      text-align: center;
+      color: #ccc;
+      border-right: 1px solid #1a1a1a;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: background-color 0.3s ease;
+    }
+    th:last-child, td:last-child {
+      border-right: none;
+    }
+    th {
+      background: #121212;
+      color: var(--accent);
+      font-weight: 700;
+    }
+    td.class-name {
+      color: var(--neon-green);
+      font-weight: 700;
+    }
+    tbody tr:hover {
+      background-color: rgba(0, 170, 255, 0.15);
+    }
+
+    /* Location map */
+    .map-container {
+      max-width: 1100px;
+      margin: 0 auto 3rem;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0, 180, 255, 0.4);
+      overflow: hidden;
+      height: 320px;
+      user-select: none;
+      opacity: 0;
+      transform: translateY(45px);
+      transition: all 0.76s cubic-bezier(.45,.75,.13,1.03);
+    }
+    .map-container.visible {
+      opacity: 1; transform: none;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      filter: brightness(0.85);
+      transition: filter 0.3s ease;
+    }
+    iframe:hover, iframe:focus {
+      filter: brightness(1);
+    }
+
+    /* Contact form */
+    .contact-section {
+      max-width: 700px;
+      margin: 0 auto 4rem;
+      padding: 0 1.5rem;
+      background: var(--dark-dim);
+      border-radius: 25px;
+      box-shadow: 0 0 30px rgba(0, 180, 255, 0.35);
+      color: #ddd;
+      opacity: 0;
+      transform: translateY(45px);
+      transition: all 0.76s cubic-bezier(.45,.75,.13,1.03);
+    }
+    .contact-section.visible {
+      opacity: 1; transform: none;
+    }
+    .contact-section h2 {
+      margin-top: 2rem;
+      color: var(--accent);
+      text-align: center;
+      font-weight: 800;
+      font-size: 2rem;
+    }
+    .contact-section form {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+    label {
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      display: block;
+      color: #abdcff;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    select,
+    textarea {
+      background: #121212;
+      border: 1.5px solid #222;
+      border-radius: 10px;
+      padding: 0.8rem 1rem;
+      font-size: 1rem;
+      color: white;
+      resize: vertical;
+      transition: border-color 0.3s ease;
+    }
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="tel"]:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--electric-blue);
+      outline: none;
+    }
+    textarea {
+      min-height: 120px;
+    }
+    .submit-btn {
+      align-self: center;
+      max-width: 160px;
+      background: var(--electric-blue);
+      color: #0a0a0a;
+      padding: 0.85rem 0;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      border: none;
+      user-select: none;
+    }
+    .submit-btn:hover,
+    .submit-btn:focus {
+      background: #0096d6;
+      transform: scale(1.05);
+      outline: none;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: #555;
+      font-size: 0.9rem;
+      user-select: none;
+      border-top: 1px solid #111;
+      background: #0a0a0a;
+    }
+
+    /* Sign-up modal */
+    #signup-modal .modal {
+      max-width: 480px;
+    }
+    #signup-modal form .form-group {
+      margin-bottom: 1.2rem;
+    }
+    #signup-modal label {
+      font-weight: 600;
+      color: #abdcff;
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+    #signup-modal select {
+      cursor: pointer;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      nav ul {
+        gap: 1.25rem;
+      }
+      nav ul li a {
+        font-size: 0.95rem;
+      }
+      .features {
+        grid-template-columns: 1fr;
+      }
+      .pricing {
+        grid-template-columns: 1fr;
+      }
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+      thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+      }
+      tr {
+        margin-bottom: 1rem;
+        background: var(--dark-dim);
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0, 130, 255, 0.2);
+        padding: 1rem 1.5rem;
+      }
+      td {
+        border: none;
+        padding-left: 50%;
+        position: relative;
+        text-align: left;
+        font-size: 0.95rem;
+      }
+      td::before {
+        position: absolute;
+        top: 1rem;
+        left: 1.5rem;
+        width: 45%;
+        padding-right: 1rem;
+        white-space: nowrap;
+        font-weight: 700;
+        color: var(--electric-blue);
+        content: attr(data-label);
+      }
+      td.class-name::before {
+        color: var(--neon-green);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header role="banner">
+  <nav class="container" role="navigation" aria-label="Primary navigation">
+    <div class="logo" aria-label="Elite Fitness and Wellness Gym Logo" tabindex="0">ELITE FITNESS</div>
+    <ul>
+      <li><a href="#features" tabindex="0">Features</a></li>
+      <li><a href="#testimonials" tabindex="0">Testimonials</a></li>
+      <li><a href="#pricing" tabindex="0">Pricing</a></li>
+      <li><a href="#schedule" tabindex="0">Schedule</a></li>
+      <li><a href="#location" tabindex="0">Location</a></li>
+      <li><a href="#contact" tabindex="0">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- Metrics bar before hero -->
+<div class="metrics-bar">
+  <div class="metrics-container">
+    <div class="metric"><span>500+</span><br/>Elite Clients</div>
+    <div class="bar"></div>
+    <div class="metric"><span>#1</span><br/>Rated Gym</div>
+    <div class="bar"></div>
+    <div class="metric"><span>40+</span><br/>Group Classes</div>
+  </div>
+</div>
+
+<section class="hero" role="region" aria-label="Hero section with call to action" id="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-gradient"></div>
+  <div class="hero-content container">
+    <h1>Join the Elite &ndash; Transform Your Body Today</h1>
+    <p class="hero-tag">Where luxury meets performance</p>
+    <button class="btn cta-btn" aria-label="Join the Elite call to action button" id="getStartedBtn"><span>⚡️</span> Get Started</button>
+  </div>
+</section>
+
+<section id="features" class="container" tabindex="-1" aria-labelledby="features-title">
+  <h2 id="features-title">Our Expertise</h2>
+  <div class="features" role="list">
+    <article class="feature-card" tabindex="0" role="listitem" aria-describedby="feat-personal-desc" data-feature-id="personal-training" aria-haspopup="dialog" aria-controls="feature-modal" aria-expanded="false">
+      <div class="feature-icon" aria-hidden="true">🏋️</div>
+      <h3>Personal Training</h3>
+      <p id="feat-personal-desc">Customized sessions with expert trainers focused on your goals & progress.</p>
+    </article>
+    <article class="feature-card" tabindex="0" role="listitem" aria-describedby="feat-group-desc" data-feature-id="group-classes" aria-haspopup="dialog" aria-controls="feature-modal" aria-expanded="false">
+      <div class="feature-icon" aria-hidden="true">🤸‍♂️</div>
+      <h3>Group Classes</h3>
+      <p id="feat-group-desc">Diverse and energizing classes for all skill levels and interests.</p>
+    </article>
+    <article class="feature-card" tabindex="0" role="listitem" aria-describedby="feat-nutrition-desc" data-feature-id="nutrition-coaching" aria-haspopup="dialog" aria-controls="feature-modal" aria-expanded="false">
+      <div class="feature-icon" aria-hidden="true">🥗</div>
+      <h3>Nutrition Coaching</h3>
+      <p id="feat-nutrition-desc">Personalized plans to fuel your fitness journey responsibly.</p>
+    </article>
+    <article class="feature-card" tabindex="0" role="listitem" aria-describedby="feat-equipment-desc" data-feature-id="equipment" aria-haspopup="dialog" aria-controls="feature-modal" aria-expanded="false">
+      <div class="feature-icon" aria-hidden="true">🖥️</div>
+      <h3>State-of-the-art Equipment</h3>
+      <p id="feat-equipment-desc">Access to the latest machines and tech for optimized workouts.</p>
+    </article>
+  </div>
+</section>
+
+<!-- Feature Detail Modal -->
+<div class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="feature-modal-title" aria-describedby="feature-modal-desc" id="feature-modal" tabindex="-1" hidden>
+  <div class="modal" role="document">
+    <button class="modal-close" aria-label="Close feature details modal" id="featureModalCloseBtn">&times;</button>
+    <h3 id="feature-modal-title"></h3>
+    <p id="feature-modal-desc"></p>
+  </div>
+</div>
+
+<section id="testimonials" class="container" tabindex="-1" aria-labelledby="testimonials-title">
+  <h2 id="testimonials-title">What Elite Clients Say</h2>
+  <div class="testimonials" role="list">
+    <blockquote class="testimonial-item" role="listitem" tabindex="0">
+      “Joining Elite Fitness transformed not only my body but my entire lifestyle. The coaches and facilities are unmatched in quality.”
+      <cite class="testimonial-author">– Alex J., Professional Athlete</cite>
+    </blockquote>
+    <blockquote class="testimonial-item" role="listitem" tabindex="0">
+      “The personalized approach here is unlike any gym I’ve been to. I feel empowered every session to push beyond my limits.”
+      <cite class="testimonial-author">– Marina S., CEO</cite>
+    </blockquote>
+    <blockquote class="testimonial-item" role="listitem" tabindex="0">
+      “From the nutrition coaching to the cutting-edge equipment, Elite Fitness offers a premium experience for true health enthusiasts.”
+      <cite class="testimonial-author">– David K., Actor</cite>
+    </blockquote>
+  </div>
+</section>
+
+<section id="pricing" class="container" tabindex="-1" aria-labelledby="pricing-title">
+  <h2 id="pricing-title">Pricing Plans</h2>
+  <div class="pricing" role="list">
+    <article class="plan" role="listitem" tabindex="0" aria-label="Basic plan: $49 per month">
+      <h3 class="plan-title">Basic</h3>
+      <p class="plan-price">$49<span class="plan-duration">/mo</span></p>
+      <ul class="plan-features" aria-label="Basic plan features">
+        <li>Access to gym equipment</li>
+        <li>Group classes (limited)</li>
+        <li>Locker room access</li>
+      </ul>
+      <button class="choose-plan-btn" aria-label="Select Basic Pricing Plan" data-plan="Basic">Choose Plan</button>
+    </article>
+    <article class="plan" role="listitem" tabindex="0" aria-label="Premium plan: $89 per month">
+      <h3 class="plan-title">Premium</h3>
+      <p class="plan-price">$89<span class="plan-duration">/mo</span></p>
+      <ul class="plan-features" aria-label="Premium plan features">
+        <li>All Basic features</li>
+        <li>Unlimited group classes</li>
+        <li>Personal training (2 sessions/mo)</li>
+        <li>Nutrition coaching</li>
+      </ul>
+      <button class="choose-plan-btn" aria-label="Select Premium Pricing Plan" data-plan="Premium">Choose Plan</button>
+    </article>
+    <article class="plan" role="listitem" tabindex="0" aria-label="VIP plan: $149 per month">
+      <h3 class="plan-title">VIP</h3>
+      <p class="plan-price">$149<span class="plan-duration">/mo</span></p>
+      <ul class="plan-features" aria-label="VIP plan features">
+        <li>All Premium features</li>
+        <li>Unlimited personal training</li>
+        <li>Exclusive VIP lounge access</li>
+        <li>Priority booking & concierge</li>
+      </ul>
+      <button class="choose-plan-btn" aria-label="Select VIP Pricing Plan" data-plan="VIP">Choose Plan</button>
+    </article>
+  </div>
+</section>
+
+<section id="schedule" class="container" tabindex="-1" aria-labelledby="schedule-title">
+  <h2 id="schedule-title">Class Timetable</h2>
+  <div class="timetable" role="region" aria-live="polite" aria-label="Weekly class timetable">
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Time</th>
+          <th scope="col">Monday</th>
+          <th scope="col">Tuesday</th>
+          <th scope="col">Wednesday</th>
+          <th scope="col">Thursday</th>
+          <th scope="col">Friday</th>
+          <th scope="col">Saturday</th>
+          <th scope="col">Sunday</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-label="Time">6:00am - 7:00am</td>
+          <td data-label="Monday" class="class-name">HIIT</td>
+          <td data-label="Tuesday">Yoga</td>
+          <td data-label="Wednesday" class="class-name">Spin</td>
+          <td data-label="Thursday">Pilates</td>
+          <td data-label="Friday" class="class-name">CrossFit</td>
+          <td data-label="Saturday">Restorative Yoga</td>
+          <td data-label="Sunday">Rest Day</td>
+        </tr>
+        <tr>
+          <td data-label="Time">12:00pm - 1:00pm</td>
+          <td data-label="Monday">Strength</td>
+          <td data-label="Tuesday" class="class-name">Circuit</td>
+          <td data-label="Wednesday">Core Blast</td>
+          <td data-label="Thursday" class="class-name">Boxing</td>
+          <td data-label="Friday">Dance Fit</td>
+          <td data-label="Saturday" class="class-name">Bootcamp</td>
+          <td data-label="Sunday">Rest Day</td>
+        </tr>
+        <tr>
+          <td data-label="Time">6:00pm - 7:00pm</td>
+          <td data-label="Monday">Yoga</td>
+          <td data-label="Tuesday" class="class-name">Spin</td>
+          <td data-label="Wednesday">Pilates</td>
+          <td data-label="Thursday" class="class-name">HIIT</td>
+          <td data-label="Friday">Zumba</td>
+          <td data-label="Saturday">Meditation</td>
+          <td data-label="Sunday">Rest Day</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="location" class="container" tabindex="-1" aria-labelledby="location-title" style="margin-bottom: 3rem;">
+  <h2 id="location-title">Find Us</h2>
+  <div class="map-container" role="region" aria-label="Location map">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.9117333455336!2d-122.42067928468292!3d37.77851927975807!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085808e20d41a27%3A0x4129b9c8f7d67a22!2sEquinox%20Downtown%20SF!5e0!3m2!1sen!2sus!4v1690462200000!5m2!1sen!2sus"
+      allowfullscreen=""
+      loading="lazy"
+      aria-hidden="false"
+      tabindex="0"
+      title="Map showing location of Elite Fitness Gym">
+    </iframe>
+  </div>
+</section>
+
+<section id="contact" class="contact-section" tabindex="-1" aria-labelledby="contact-title">
+  <h2 id="contact-title">Contact Us</h2>
+  <form aria-label="Contact form">
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" placeholder="Your full name" required aria-required="true" />
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" placeholder="your.email@example.com" required aria-required="true" />
+
+    <label for="message">Message</label>
+    <textarea id="message" name="message" placeholder="How can we help you?" required aria-required="true"></textarea>
+
+    <button type="submit" class="submit-btn" aria-label="Send contact message">Send Message</button>
+  </form>
+</section>
+
+<footer role="contentinfo">
+  <p>© 2025 Elite Fitness & Wellness Gym. All rights reserved.</p>
+</footer>
+
+<!-- Sign-up Modal -->
+<div class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="signup-modal-title" aria-describedby="signup-modal-desc" id="signup-modal" tabindex="-1" hidden>
+  <div class="modal" role="document">
+    <button class="modal-close" aria-label="Close sign-up modal" id="signupModalCloseBtn">&times;</button>
+    <h3 id="signup-modal-title">Sign Up for a Plan</h3>
+    <p id="signup-modal-desc">Choose your plan and enter your details below to start your journey with Elite Fitness.</p>
+    <form id="signupForm" aria-label="Sign up form">
+      <div class="form-group">
+        <label for="planSelect">Select Plan</label>
+        <select id="planSelect" name="plan" required aria-required="true" aria-describedby="signup-modal-desc">
+          <option value="" disabled selected>Select a plan</option>
+          <option value="Basic">Basic</option>
+          <option value="Premium">Premium</option>
+          <option value="VIP">VIP</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="userName">Name</label>
+        <input type="text" id="userName" name="userName" placeholder="Your full name" required aria-required="true" />
+      </div>
+      <div class="form-group">
+        <label for="userEmail">Email</label>
+        <input type="email" id="userEmail" name="userEmail" placeholder="your.email@example.com" required aria-required="true" />
+      </div>
+      <div class="form-group">
+        <label for="userPhone">Phone</label>
+        <input type="tel" id="userPhone" name="userPhone" placeholder="+1 234 567 890" pattern="^\+?\d{7,15}$" aria-describedby="phoneHelp" />
+        <small id="phoneHelp" style="color:#777;font-size:0.8rem;">Optional, format: +1234567890</small>
+      </div>
+      <button type="submit" class="submit-btn" aria-label="Submit sign-up form">Submit</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  // Feature Detail Modal content definitions keyed by feature ID
+  const featureDetails = {
+    'personal-training': {
+      title: 'Personal Training',
+      description: `Our expert personal trainers craft customized sessions around your individual goals, ensuring focused progress and maximum results. Benefit from personalized coaching, motivation, and professional guidance tailored to your unique needs.`
+    },
+    'group-classes': {
+      title: 'Group Classes',
+      description: `Engage in diverse and energizing group classes designed to suit all fitness levels and interests. Join a community-driven workout experience with fun, motivation, and expert-led sessions ranging from yoga and Pilates to high-intensity circuits.`
+    },
+    'nutrition-coaching': {
+      title: 'Nutrition Coaching',
+      description: `Fuel your fitness journey with personalized nutrition coaching. Our certified nutritionists develop responsible, sustainable plans to complement your workouts and support your overall health and wellness goals.`
+    },
+    'equipment': {
+      title: 'State-of-the-art Equipment',
+      description: `Train with access to the latest machines, fitness technology, and equipment. Our state-of-the-art gym ensures you have the best tools available to optimize your workouts and accelerate your performance.`
+    }
+  };
+
+  // Elements for feature modal
+  const featuresContainer = document.querySelector('.features');
+  const featureModal = document.getElementById('feature-modal');
+  const featureModalTitle = document.getElementById('feature-modal-title');
+  const featureModalDesc = document.getElementById('feature-modal-desc');
+  const featureModalCloseBtn = document.getElementById('featureModalCloseBtn');
+
+  // Elements for sign-up modal
+  const signupModal = document.getElementById('signup-modal');
+  const signupModalCloseBtn = document.getElementById('signupModalCloseBtn');
+  const signupForm = document.getElementById('signupForm');
+  const planSelect = document.getElementById('planSelect');
+
+  // Focus management
+  let lastFocusedElem = null;
+
+  // -------- Feature Modal Functions --------
+  function openFeatureModal(featureId, triggerElem) {
+    if (!featureDetails[featureId]) return;
+    lastFocusedElem = triggerElem;
+    const { title, description } = featureDetails[featureId];
+    featureModalTitle.textContent = title;
+    featureModalDesc.textContent = description;
+    featureModal.hidden = false;
+    featureModal.classList.add('active');
+    featureModal.setAttribute('aria-hidden', 'false');
+
+    triggerElem.setAttribute('aria-expanded', 'true');
+    featureModal.focus();
+    trapFocus(featureModal);
+  }
+  function closeFeatureModal() {
+    featureModal.classList.remove('active');
+    featureModal.setAttribute('aria-hidden', 'true');
+    featureModal.hidden = true;
+    document.querySelectorAll('.feature-card').forEach(card => card.setAttribute('aria-expanded', 'false'));
+    if (lastFocusedElem) {
+      lastFocusedElem.focus();
+      lastFocusedElem = null;
+    }
+  }
+
+  // -------- Sign-Up Modal Functions --------
+  function openSignupModal(planName = '', triggerElem = null) {
+    lastFocusedElem = triggerElem;
+    signupForm.reset();
+    signupModal.hidden = false;
+    signupModal.classList.add('active');
+    signupModal.setAttribute('aria-hidden', 'false');
+    if (planName && ['Basic','Premium','VIP'].includes(planName)) {
+      planSelect.value = planName;
+    } else {
+      planSelect.value = '';
+    }
+    signupModal.focus();
+    trapFocus(signupModal);
+  }
+  function closeSignupModal() {
+    signupModal.classList.remove('active');
+    signupModal.setAttribute('aria-hidden', 'true');
+    signupModal.hidden = true;
+    if (lastFocusedElem) {
+      lastFocusedElem.focus();
+      lastFocusedElem = null;
+    }
+  }
+
+  // Trap focus helper
+  function trapFocus(element) {
+    const focusableElementsString = 'a[href], area[href], input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]';
+    const focusableElements = element.querySelectorAll(focusableElementsString);
+    if (!focusableElements.length) return;
+
+    const firstFocusableEl = focusableElements[0];
+    const lastFocusableEl = focusableElements[focusableElements.length - 1];
+
+    function handleTrap(e) {
+      if (e.key === 'Tab') {
+        if (e.shiftKey) { // Shift + Tab
+          if (document.activeElement === firstFocusableEl) {
+            e.preventDefault();
+            lastFocusableEl.focus();
+          }
+        } else { // Tab
+          if (document.activeElement === lastFocusableEl) {
+            e.preventDefault();
+            firstFocusableEl.focus();
+          }
+        }
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        if (element === featureModal) {
+          closeFeatureModal();
+        } else if (element === signupModal) {
+          closeSignupModal();
+        }
+      }
+    }
+    element.addEventListener('keydown', handleTrap);
+
+    // Cleanup listener after modal closes
+    function cleanup() {
+      element.removeEventListener('keydown', handleTrap);
+      element.removeEventListener('transitionend', cleanup);
+    }
+    element.addEventListener('transitionend', cleanup);
+  }
+
+  // Feature modal open triggers
+  featuresContainer.addEventListener('click', e => {
+    const card = e.target.closest('.feature-card');
+    if (!card) return;
+    openFeatureModal(card.dataset.featureId, card);
+  });
+  featuresContainer.addEventListener('keydown', e => {
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('feature-card')) {
+      e.preventDefault();
+      openFeatureModal(e.target.dataset.featureId, e.target);
+    }
+  });
+
+  // Close feature modal button
+  featureModalCloseBtn.addEventListener('click', closeFeatureModal);
+
+  // Close feature modal clicking backdrop
+  featureModal.addEventListener('click', e => {
+    if (e.target === featureModal) {
+      closeFeatureModal();
+    }
+  });
+
+  // -------- Pricing Plan Choose Buttons --------
+  document.querySelectorAll('.choose-plan-btn').forEach(btn => {
+    btn.addEventListener('click', e => {
+      const selectedPlan = btn.dataset.plan || '';
+      openSignupModal(selectedPlan, btn);
+    });
+  });
+
+  // -------- Get Started Button --------
+  const getStartedBtn = document.getElementById('getStartedBtn');
+  getStartedBtn.addEventListener('click', () => openSignupModal('', getStartedBtn));
+
+  // -------- Sign-Up Modal Close Button --------
+  signupModalCloseBtn.addEventListener('click', closeSignupModal);
+
+  // Close signup modal clicking backdrop
+  signupModal.addEventListener('click', e => {
+    if (e.target === signupModal) {
+      closeSignupModal();
+    }
+  });
+
+  // Global Escape key closes modals if open
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      if (!featureModal.hidden) closeFeatureModal();
+      else if (!signupModal.hidden) closeSignupModal();
+    }
+  });
+
+  // -------- Sign-Up Form Submission --------
+  signupForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const selectedPlan = planSelect.value;
+    const name = signupForm.userName.value.trim();
+    const email = signupForm.userEmail.value.trim();
+    // Phone optional; basic validation done by pattern attr
+
+    if (!selectedPlan) {
+      alert('Please select a plan.');
+      planSelect.focus();
+      return;
+    }
+    if (!name || !email) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+
+    // For demo: show confirmation alert and reset
+    alert(`Thank you, ${name}! Your inquiry for the ${selectedPlan} plan has been received. We will contact you shortly.`);
+    signupForm.reset();
+    closeSignupModal();
+  });
+
+  // Smooth scroll for Hero button & nav links
+  document.querySelector('.hero .btn').addEventListener('click', () => {
+    document.getElementById('features').scrollIntoView({ behavior: 'smooth' });
+  });
+  document.querySelectorAll('nav ul li a').forEach(anchor => {
+    anchor.addEventListener('click', e => {
+      e.preventDefault();
+      const targetID = anchor.getAttribute('href').substring(1);
+      const targetSection = document.getElementById(targetID);
+      if (targetSection) {
+        targetSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  // Contact form submission stub
+  const contactForm = document.querySelector('#contact form');
+  contactForm.addEventListener('submit', e => {
+    e.preventDefault();
+    alert('Thank you for contacting Elite Fitness! We will get back to you shortly.');
+    contactForm.reset();
+  });
+
+  // Reveal on scroll animations
+  function onScrollReveal() {
+    function reveal(selector) {
+      document.querySelectorAll(selector).forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight - 120) {
+          el.classList.add('visible');
+        }
+      });
+    }
+    reveal('.metrics-bar');
+    reveal('.hero');
+    reveal('.features');
+    reveal('.testimonials');
+    reveal('.pricing');
+    reveal('.timetable');
+    reveal('.map-container');
+    reveal('.contact-section');
+  }
+  window.addEventListener('scroll', onScrollReveal);
+  window.addEventListener('DOMContentLoaded', onScrollReveal);
+</script>
+
+</body>
+</html>
