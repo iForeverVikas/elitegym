@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vikas Kumar - SDET Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+    * {
+      font-family: "Inter", sans-serif;
+    }
+    .gradient-bg {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -6px;
+      top: 0;
+      width: 12px;
+      height: 12px;
+      background: #3b82f6;
+      border-radius: 50%;
+      border: 3px solid white;
+      box-shadow: 0 0 0 3px #3b82f6;
+    }
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #3b82f6;
+      border-radius: 50%;
+      animation: particle-float 6s infinite linear;
+    }
+    @keyframes particle-float {
+      0% {
+        transform: translateY(100vh) translateX(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100px) translateX(100px);
+        opacity: 0;
+      }
+    }
+    /* Dark Green Theme Mode Overrides */
+    body.dark-green-mode {
+      background-color: #0f2d0f;
+      color: white !important;
+    }
+    body.dark-green-mode * { color: white !important; }
+    body.dark-green-mode nav { background-color: rgba(6, 95, 6, 0.9); color: #a3d8a3; }
+    body.dark-green-mode a, body.dark-green-mode a:hover, body.dark-green-mode nav a { color: #7ee08e !important; }
+    body.dark-green-mode .bg-white { background-color: #145214 !important; color: #b8e6ba !important; }
+    body.dark-green-mode .bg-gray-50 { background-color: #123812 !important; }
+    body.dark-green-mode input, body.dark-green-mode textarea, body.dark-green-mode select {
+      background-color: #2c5d2c !important;
+      color: #b8e6ba !important;
+      border-color: #4f8f4f !important;
+    }
+    body.dark-green-mode .card-hover:hover {
+      box-shadow: 0 20px 40px rgba(126, 224, 142, 0.6) !important;
+    }
+    body.dark-green-mode footer {
+      background-color: #123812 !important;
+      color: #90c990 !important;
+    }
+    #education .bg-gradient-to-br { color: #000000 !important; }
+    .scroll-down-btn {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      z-index: 9999;
+      background-color: rgba(255, 255, 255, 0.85);
+      border-radius: 9999px;
+      padding: 0.4rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .scroll-down-btn:hover { background-color: rgba(255,255,255,1); }
+    .scroll-down-btn svg {
+      width: 1.2rem; height: 1.2rem; color: #2563eb; animation: bounce 2s infinite;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <!-- Particles Background -->
+  <div id="particles" class="fixed inset-0 pointer-events-none z-0"></div>
+
+  <!-- Header -->
+  <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-md z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center py-4">
+        <div class="text-2xl font-bold text-gray-900">Vikas Kumar</div>
+        <div class="hidden md:flex space-x-8">
+          <a href="#hero-about" class="text-blue-600 transition-colors font-semibold">Home/About</a>
+          <a href="#skills" class="text-gray-700 hover:text-blue-600 transition-colors">Skills</a>
+          <a href="#projects" class="text-gray-700 hover:text-blue-600 transition-colors">Projects</a>
+          <a href="#professional-summary" class="text-gray-700 hover:text-blue-600 transition-colors">Professional Summary</a>
+          <a href="#professional-experience" class="text-gray-700 hover:text-blue-600 transition-colors">Professional Experience</a>
+          <a href="#education" class="text-gray-700 hover:text-blue-600 transition-colors">Education</a>
+          <a href="#contact" class="text-gray-700 hover:text-blue-600 transition-colors">Get In Touch</a>
+        </div>
+        <button id="mobile-menu-btn" class="md:hidden text-gray-700"><i class="fas fa-bars text-xl"></i></button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="md:hidden hidden bg-white/95 backdrop-blur-md">
+      <div class="px-4 py-2 space-y-2">
+        <a href="#hero-about" class="block py-2 text-blue-600 font-semibold">Home/About</a>
+        <a href="#skills" class="block py-2 text-gray-700 hover:text-blue-600">Skills</a>
+        <a href="#projects" class="block py-2 text-gray-700 hover:text-blue-600">Projects</a>
+        <a href="#professional-summary" class="block py-2 text-gray-700 hover:text-blue-600">Professional Summary</a>
+        <a href="#professional-experience" class="block py-2 text-gray-700 hover:text-blue-600">Professional Experience</a>
+        <a href="#education" class="block py-2 text-gray-700 hover:text-blue-600">Education</a>
+        <a href="#contact" class="block py-2 text-gray-700 hover:text-blue-600">Get In Touch</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Home/About Section -->
+  <section id="hero-about" class="gradient-bg relative flex items-center justify-center overflow-hidden py-20 min-h-screen">
+    <div class="absolute inset-0 opacity-10 pointer-events-none">
+      <div class="floating absolute top-20 left-20 w-64 h-64 bg-white rounded-full"></div>
+      <div class="floating absolute bottom-20 right-20 w-48 h-48 bg-white rounded-full" style="animation-delay: -1s;"></div>
+      <div class="floating absolute top-1/2 left-10 w-32 h-32 bg-white rounded-full" style="animation-delay: -2s;"></div>
+    </div>
+    <div class="relative z-10 w-full max-w-3xl mx-auto px-4">
+      <div class="flex flex-col items-center text-center space-y-5 fade-in">
+        <div class="w-40 h-40 sm:w-56 sm:h-56 bg-gradient-to-br from-blue-400 to-purple-600 rounded-full overflow-hidden shadow-xl border-4 border-white">
+          <img src="https://i.postimg.cc/j2QZQPBv/DP.jpg" alt="Vikas Kumar Profile" class="object-cover w-full h-full"/>
+        </div>
+        <h2 class="text-4xl sm:text-5xl font-bold text-white">Vikas Kumar</h2>
+        <h3 class="text-2xl sm:text-3xl text-white font-medium">Software Development Engineer in Test</h3>
+        <p class="text-lg sm:text-xl text-blue-100 max-w-2xl font-light">
+          Specialized in Web, Mobile & API Testing | Automation Expert | Quality Assurance Engineer
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4 mt-2">
+          <a href="https://www.linkedin.com/in/vikas-kumar-55531136a" target="_blank" rel="noopener noreferrer" class="bg-transparent border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-blue-600 transition-all inline-flex items-center justify-center">
+            <i class="fab fa-linkedin mr-2"></i>Connect on LinkedIn
+          </a>
+          <button class="bg-white text-blue-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-all transform hover:scale-105 inline-flex items-center justify-center">
+            <i class="fas fa-download mr-2"></i>Download Resume
+          </button>
+        </div>
+      </div>
+      <button id="scroll-down-btn-hero" aria-label="Scroll down" class="scroll-down-btn" data-target="skills">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="py-20 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 fade-in">
+        <h2 class="text-4xl font-bold text-gray-900 mb-4">Skills & Expertise</h2>
+        <div class="w-24 h-1 bg-blue-600 mx-auto"></div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="bg-white p-6 rounded-xl shadow-lg card-hover flex flex-col items-center text-center">
+          <i class="fas fa-globe text-4xl text-blue-600 mb-4"></i>
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">Web Testing</h3>
+          <ul class="text-gray-700 space-y-2 text-left">
+            <li>• Selenium WebDriver</li>
+            <li>• Cross-Browser Testing</li>
+            <li>• Responsive UI Testing</li>
+            <li>• Page Object Model</li>
+            <li>• E2E Test Automation</li>
+            <li>• DOM Manipulation</li>
+            <li>• JavaScript Executors</li>
+            <li>• Web Performance</li>
+          </ul>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow-lg card-hover flex flex-col items-center text-center">
+          <i class="fas fa-mobile-alt text-4xl text-green-600 mb-4"></i>
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">Mobile Testing</h3>
+          <ul class="text-gray-700 space-y-2 text-left">
+            <li>• Appium Framework</li>
+            <li>• Android/iOS Testing</li>
+            <li>• Device Cloud Testing</li>
+            <li>• Native & Hybrid Apps</li>
+            <li>• Mobile Gestures</li>
+            <li>• Real Device Testing</li>
+            <li>• Mobile Performance</li>
+            <li>• App Store Validation</li>
+          </ul>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow-lg card-hover flex flex-col items-center text-center">
+          <i class="fas fa-code text-4xl text-purple-600 mb-4"></i>
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">API Testing</h3>
+          <ul class="text-gray-700 space-y-2 text-left">
+            <li>• Rest Assured</li>
+            <li>• RESTful Services</li>
+            <li>• JSON/XML Validation</li>
+            <li>• Postman Collections</li>
+            <li>• API Security Testing</li>
+            <li>• Contract Testing</li>
+            <li>• Response Validation</li>
+            <li>• Load & Stress Testing</li>
+          </ul>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow-lg card-hover flex flex-col items-center text-center">
+          <i class="fas fa-tools text-4xl text-red-600 mb-4"></i>
+          <h3 class="text-xl font-semibold text-gray-900 mb-4">Tools & Framework</h3>
+          <ul class="text-gray-700 space-y-2 text-left">
+            <li>• TestNG & JUnit</li>
+            <li>• Cucumber BDD</li>
+            <li>• Maven & Gradle</li>
+            <li>• Jenkins CI/CD</li>
+            <li>• Git Version Control</li>
+            <li>• JIRA & TestRail</li>
+            <li>• ExtentReports</li>
+            <li>• Docker & Cloud</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <button id="scroll-down-btn-skills" aria-label="Scroll down" class="scroll-down-btn" data-target="projects">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+      </svg>
+    </button>
+  </section>
+
+  <!-- PROJECTS SECTION (Tile Style) -->
+  <section id="projects" class="py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 fade-in">
+        <h2 class="text-4xl font-bold text-gray-900 mb-4">Projects</h2>
+        <div class="w-24 h-1 bg-blue-600 mx-auto"></div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 fade-in">
+        <!-- Project 1 -->
+        <div class="bg-white p-6 rounded-xl shadow-lg card-hover flex flex-col items-center text-center">
+          <i class="fas fa-prescription-bottle-alt text-4xl text-blue-600 mb-4"></i>
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">E-Commerce Website (Pharmacy)</h3>
+          <p class="text-gray-700">
+            Online platform for purchasing cosmetics and healthcare products.<br>
+            Focus: Web automation, functional & regression testing, CI/CD enablement, cross-browser/device validation.
+          </p>
+        </div>
+        <!-- Project 2 -->
+        <div class="bg-white p-6 rounded-xl shadow-lg card-hover flex flex-col items-center text-center">
+          <i class="fas fa-bullhorn text-4xl text-purple-600 mb-4"></i>
+          <h3 class="text-xl font-semibold text-gray-900 mb-2">Progressive Content Platform</h3>
+          <p class="text-gray-700">
+            B2B SaaS solution for automating & personalizing content strategies.<br>
+            Focus: API automation, mobile testing (Appium), quality strategy for new features.
+          </p>
+        </div>
+      </div>
+    </div>
+    <button id="scroll-down-btn-projects" aria-label="Scroll down" class="scroll-down-btn" data-target="professional-summary">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+      </svg>
+    </button>
+  </section>
+
+  <!-- PROFESSIONAL SUMMARY -->
+  <section id="professional-summary" class="py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12 fade-in max-w-3xl mx-auto">
+        <h2 class="text-4xl font-bold text-gray-900 mb-6">Professional Summary</h2>
+        <p class="text-lg text-gray-700 leading-relaxed">
+          I'm Vikas Kumar, an accomplished SDET (Software Development Engineer in Test) with over 4.5 years of experience in both automation and manual testing of Web, API, and Mobile applications. My expertise spans Selenium, Appium, Rest Assured, and CI/CD tools such as Jenkins and GitLab. I design scalable frameworks (POM, BDD) to drive high-quality releases and have led QA teams by example in Agile settings.
+        </p>
+      </div>
+    </div>
+    <button id="scroll-down-btn-prof-summary" aria-label="Scroll down" class="scroll-down-btn" data-target="professional-experience">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+      </svg>
+    </button>
+  </section>
+
+  <!-- PROFESSIONAL EXPERIENCE -->
+  <section id="professional-experience" class="py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 fade-in">
+        <h2 class="text-4xl font-bold text-gray-900 mb-4">Professional Experience</h2>
+        <div class="w-24 h-1 bg-blue-600 mx-auto"></div>
+      </div>
+      <div class="max-w-3xl mx-auto">
+        <div class="relative border-l-4 border-blue-600 pl-8 fade-in">
+          <div class="timeline-item relative mb-8">
+            <div class="bg-white p-6 rounded-xl shadow-lg">
+              <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                <h3 class="text-xl font-bold text-gray-900">
+                  Software Development Engineer in Test (SDET)
+                </h3>
+                <span class="text-blue-600 font-semibold">Mar 2021 – Present</span>
+              </div>
+              <h4 class="text-lg font-semibold text-gray-700 mb-4">
+                WebSFDC Technologies Pvt. Ltd.
+              </h4>
+              <div class="space-y-3 text-left">
+                <h5 class="font-semibold text-gray-900">Key Contributions:</h5>
+                <ul class="text-gray-700 space-y-2 list-disc list-inside">
+                  <li>Architected automation frameworks for Web, Mobile, and API testing, reducing manual effort by 60-80%.</li>
+                  <li>Developed cross-platform mobile automation (Appium) for Android/iOS with device cloud integration.</li>
+                  <li>Implemented API automation (Rest Assured) with contract validation.</li>
+                  <li>Led end-to-end functional and regression test coverage, improving quality to 95+%.</li>
+                  <li>Mentored QA team and standardized processes, raising productivity by 40%.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button id="scroll-down-btn-professional-experience" aria-label="Scroll down" class="scroll-down-btn" data-target="education">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+      </svg>
+    </button>
+  </section>
+
+  <!-- Education Section -->
+  <section id="education" class="py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 fade-in">
+        <h2 class="text-4xl font-bold text-gray-900 mb-4">Education</h2>
+        <div class="w-24 h-1 bg-blue-600 mx-auto"></div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-gradient-to-br from-blue-50 to-indigo-100 p-6 rounded-xl shadow-lg text-center card-hover fade-in">
+          <i class="fas fa-graduation-cap text-4xl text-blue-600 mb-4"></i>
+          <h3 class="text-xl font-bold mb-2">Bachelor of Commerce</h3>
+          <p class="">University of Delhi</p>
+          <p class="text-blue-600 font-semibold">2016</p>
+        </div>
+        <div class="bg-gradient-to-br from-green-50 to-emerald-100 p-6 rounded-xl shadow-lg text-center card-hover fade-in">
+          <i class="fas fa-school text-4xl text-green-600 mb-4"></i>
+          <h3 class="text-xl font-bold mb-2">Intermediate</h3>
+          <p class="">CBSE Board, Delhi</p>
+          <p class="text-green-600 font-semibold">2011</p>
+        </div>
+        <div class="bg-gradient-to-br from-purple-50 to-pink-100 p-6 rounded-xl shadow-lg text-center card-hover fade-in">
+          <i class="fas fa-certificate text-4xl text-purple-600 mb-4"></i>
+          <h3 class="text-xl font-bold mb-2">High School</h3>
+          <p class="">CBSE Board, Delhi</p>
+          <p class="text-purple-600 font-semibold">2009</p>
+        </div>
+      </div>
+    </div>
+    <button id="scroll-down-btn-education" aria-label="Scroll down" class="scroll-down-btn" data-target="contact">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+      </svg>
+    </button>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-20 bg-gray-900 text-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 fade-in">
+        <h2 class="text-4xl font-bold mb-4">Get In Touch</h2>
+        <div class="w-24 h-1 bg-blue-500 mx-auto"></div>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div class="fade-in">
+          <h3 class="text-2xl font-semibold mb-8">Contact Information</h3>
+          <div class="space-y-6">
+            <div class="flex items-center">
+              <i class="fas fa-phone text-blue-500 text-xl mr-4"></i>
+              <div>
+                <p class="font-semibold">Phone</p>
+                <p class="text-gray-300">+91-9015531475</p>
+              </div>
+            </div>
+            <div class="flex items-center">
+              <i class="fas fa-envelope text-blue-500 text-xl mr-4"></i>
+              <div>
+                <p class="font-semibold">Email</p>
+                <p class="text-gray-300">vikaskumaras100@gmail.com</p>
+              </div>
+            </div>
+            <div class="flex items-center">
+              <i class="fab fa-linkedin text-blue-500 text-xl mr-4"></i>
+              <div>
+                <p class="font-semibold">LinkedIn</p>
+                <a href="https://www.linkedin.com/in/vikas-kumar-55531136a" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 transition-colors">Connect with me on LinkedIn</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="fade-in">
+          <h3 class="text-2xl font-semibold mb-8">Send Message</h3>
+          <form action="https://getform.io/f/aoloppvb" method="POST" class="space-y-6">
+            <input type="text" name="name" placeholder="Your Name" required class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white" />
+            <input type="email" name="email" placeholder="Your Email" required class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white" />
+            <textarea name="message" rows="5" placeholder="Your Message" required class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white resize-none"></textarea>
+            <input type="hidden" name="_gotcha" style="display: none !important" />
+            <input type="checkbox" name="subscribe" value="yes" checked class="form-checkbox text-blue-600" />
+            <label class="text-gray-300">Subscribe to newsletter</label>
+            <input type="hidden" name="subscribe" value="no" />
+            <div class="text-gray-300">
+              <label class="mr-4">Gender:</label>
+              <label class="mr-2"><input type="radio" name="gender" value="male" checked /> Male</label>
+              <label class="mr-2"><input type="radio" name="gender" value="female" /> Female</label>
+              <label><input type="radio" name="gender" value="other" /> Other</label>
+            </div>
+            <select name="work-experience" class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white">
+              <option value="one-year">0-1 years</option>
+              <option value="one-five-years">1-5 years</option>
+            </select>
+            <button type="submit" class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-black text-white py-8">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-4 md:mb-0"><p>&copy; 2025 Vikas Kumar. All rights reserved.</p></div>
+        <div class="flex space-x-6">
+          <a href="https://www.linkedin.com/in/vikas-kumar-55531136a" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-linkedin text-xl"></i></a>
+          <a href="https://github.com/iForeverVikas" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-github text-xl"></i></a>
+          <button class="text-gray-400 hover:text-white transition-colors"><i class="fas fa-file-pdf text-xl"></i></button>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script>
+    const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+    const mobileMenu = document.getElementById("mobile-menu");
+    mobileMenuBtn.addEventListener("click", () => {
+      mobileMenu.classList.toggle("hidden");
+    });
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute("href"));
+        if (target) {
+          target.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+          mobileMenu.classList.add("hidden");
+        }
+      });
+    });
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -50px 0px",
+    };
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, observerOptions);
+    document.querySelectorAll(".fade-in").forEach((el) => {
+      observer.observe(el);
+    });
+    function createParticle() {
+      const particle = document.createElement("div");
+      particle.className = "particle";
+      particle.style.left = Math.random() * 100 + "vw";
+      particle.style.animationDelay = Math.random() * 6 + "s";
+      particle.style.animationDuration = Math.random() * 3 + 6 + "s";
+      document.getElementById("particles").appendChild(particle);
+      setTimeout(() => {
+        if (particle.parentNode) {
+          particle.parentNode.removeChild(particle);
+        }
+      }, 9000);
+    }
+    setInterval(createParticle, 300);
+    window.addEventListener("scroll", () => {
+      const sections = document.querySelectorAll("section[id]");
+      const navLinks = document.querySelectorAll('nav a[href^="#"]');
+      let current = "";
+      sections.forEach((section) => {
+        const sectionTop = section.offsetTop;
+        if (pageYOffset >= sectionTop - 200) {
+          current = section.getAttribute("id");
+        }
+      });
+      navLinks.forEach((link) => {
+        link.classList.remove("text-blue-600");
+        link.classList.add("text-gray-700");
+        if (link.getAttribute("href").slice(1) === current) {
+          link.classList.remove("text-gray-700");
+          link.classList.add("text-blue-600");
+        }
+      });
+    });
+    const contactForm = document.querySelector("form");
+    if (contactForm) {
+      contactForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        alert("Thank you for your message! I will get back to you soon.");
+        this.reset();
+      });
+    }
+    document.querySelectorAll("button, a").forEach((element) => {
+      if (
+        element.textContent.includes("Download Resume") ||
+        element.innerHTML.includes("fa-download") ||
+        element.innerHTML.includes("fa-file-pdf")
+      ) {
+        element.addEventListener("click", function (e) {
+          e.preventDefault();
+          alert(
+            "📄 Want my resume? Just 📞 9015531475 or 📧 vikaskumaras100@gmail.com"
+          );
+        });
+      }
+    });
+    document.querySelectorAll(".card-hover").forEach((card) => {
+      card.addEventListener("mouseenter", function () {
+        this.style.transform = "translateY(-10px) scale(1.02)";
+      });
+      card.addEventListener("mouseleave", function () {
+        this.style.transform = "translateY(0) scale(1)";
+      });
+    });
+    window.addEventListener("load", function () {
+      document.body.style.opacity = "0";
+      document.body.style.transition = "opacity 0.5s ease";
+      setTimeout(() => {
+        document.body.style.opacity = "1";
+      }, 100);
+    });
+    window.addEventListener("scroll", function () {
+      const scrolled = window.pageYOffset;
+      const hero = document.querySelector("#hero-about");
+      const rate = scrolled * -0.5;
+      if (hero) {
+        hero.style.transform = `translateY(${rate}px)`;
+      }
+    });
+    let konamiCode = [];
+    const konamiSequence = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+    document.addEventListener("keydown", function (e) {
+      konamiCode.push(e.keyCode);
+      if (konamiCode.length > konamiSequence.length) {
+        konamiCode.shift();
+      }
+      if (konamiCode.toString() === konamiSequence.toString()) {
+        document.body.style.animation = "rainbow 2s infinite";
+        setTimeout(() => {
+          document.body.style.animation = "";
+        }, 5000);
+        alert("🎉 Easter egg activated! You found the secret code!");
+      }
+    });
+    const style = document.createElement("style");
+    style.textContent = `
+      @keyframes rainbow {
+        0% { filter: hue-rotate(0deg); }
+        100% { filter: hue-rotate(360deg); }
+      }
+      @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-5px); }
+      }
+    `;
+    document.head.appendChild(style);
+    document.querySelectorAll(".scroll-down-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const targetId = btn.getAttribute("data-target");
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
